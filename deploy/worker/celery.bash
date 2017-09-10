@@ -1,10 +1,10 @@
 #!/bin/bash
 
 DJANGODIR=/home/ubuntu/inmar/inmar # Django project directory
-OS_ENV=/home/ubuntu/inmar/.env
+OS_ENV=/home/ubuntu/inmar/inmar/.env
 USER=ubuntu # the user to run as
 CELERY_APP=inmar._celery #app module
-VIRTUAL_ENV_DIR=/home/ubuntu/env/billing
+VIRTUAL_ENV_DIR=/home/ubuntu/env/inmar
 DJANGO_SETTINGS_MODULE=inmar.settings.prod # which settings file should Django use
 CELERY_LOG_FILE=/home/ubuntu/Logs/inmar-worker.log
  

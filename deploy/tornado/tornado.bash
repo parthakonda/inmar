@@ -3,10 +3,8 @@
 TORNADODIR=/home/ubuntu/inmar/inmar/services # Django project directory
 OS_ENV=/home/ubuntu/inmar/inmar/.env
 VIRTUAL_ENV_DIR=/home/ubuntu/env/inmar
-DJANGO_SETTINGS_MODULE=sunrisebilling.settings.local # which settings file should Django use
-CELERY_LOG_FILE=/home/ubuntu/Logs/celery-supervisor.log
- 
-echo "Starting Celery"
+DJANGO_SETTINGS_MODULE=sunrisebilling.settings.prod # which settings file should Django use
+echo "Starting Tornado"
 
 # Loading Environment Variables
 while read line; do export "$line";
@@ -20,4 +18,4 @@ export PYTHONPATH=$TORNADODIR:$PYTHONPATH
  
 # start celery worker
 cd $TORNADODIR
-exec python server.py 8002
+exec python tornado_server.py 8002
