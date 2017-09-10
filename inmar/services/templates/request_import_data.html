@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block search %}
+
+{% endblock %}
+
+{% block add_view %}
+<br /><br />
+<div class="container" ng-controller="RequestImportDataController">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Import Data</a></li>
+        <li>
+            <a data-toggle="tab" href="#menu1">Schedule</a>
+        </li>
+    </ul>
+    
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <div class="row" style="padding-left: 20px;">
+                <div class="col-md-2">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optradio" value="upload" ng-model="import_type" />
+                            Upload
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optradio" value="s3" ng-model="import_type" />
+                            S3
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optradio" value="ftp" ng-model="import_type" />
+                            FTP
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="upload-option" ng-show="import_type=='upload'">
+                <input type="file" id="upload_file" />
+                <br />
+                <input type="button" ng-click="initiate_upload()" value="Run" class="btn btn-primary" />
+            </div>
+            <div class="upload-option" ng-show="import_type=='s3'">
+                <div class="col-md-2 text-right">
+                    <label>S3 Location</label>
+                </div>
+                <input type="text" ng-model="s3_location" />
+            </div>
+            <div class="upload-option" ng-show="import_type=='ftp'" style="padding-left: 20px;">
+                <div class="row">
+                    <div class="col-md-1 text-right">
+                        <label>Host:</label>
+                    </div>
+                    <div class="col-md-1">
+                        <input type="text" ng-model="ftp_host">
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-1 text-right">
+                        <label>Username:</label>
+                    </div>
+                    <div class="col-md-1">
+                        <input type="text" ng-model="ftp_username">
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-1 text-right">
+                        <label>Password:</label>
+                    </div>
+                    <div class="col-md-1">
+                        <input type="password" ng-model="ftp_password">
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-1 text-right">
+                        <label>Port:</label>
+                    </div>
+                    <div class="col-md-1">
+                        <input type="text" ng-model="ftp_port">
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-1 text-right">
+                        <label>Path:</label>
+                    </div>
+                    <div class="col-md-1">
+                        <input type="text" ng-model="ftp_path">
+                    </div>
+                </div>          
+            </div>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <h3>Menu 1</h3>
+            <p>Some content in menu 1.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static "js/request_import_data.js" %}"></script>
+{% endblock %}

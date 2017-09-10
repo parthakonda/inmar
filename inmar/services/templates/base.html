@@ -1,0 +1,69 @@
+{% load static %}
+<html ng-app="baseApp">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap & Ngtags Input-->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/noty.css" %}">
+    <link rel="stylesheet" href="{% static "css/font-awesome.css" %}" media="all">    
+    <link rel="stylesheet" href="{% static "css/broadcast.css" %}">    
+    <!-- Application CSS -->
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">    
+</head>
+<body ng-controller="baseController">
+    <broadcastbox url="{{request.session.TORNADO_URL}}" username="{{user.username}}"></broadcastbox>
+        
+    <!-- Header -->
+    {% block header %}
+        {% include "header.html" %}
+    {% endblock %}
+    <!-- Header END -->
+
+    <!-- Dynamic Block Content -->      
+    {% block content %}
+        {% ifequal mode "search" %}
+            {% block search %}
+
+            {% endblock %}
+        {% endifequal %}
+
+        {% ifequal mode "view" %}
+            {% block view %}
+
+            {% endblock %}
+        {% endifequal %}
+
+        {% ifequal mode "add" %}
+            {% block add %}
+
+            {% endblock %}
+        {% endifequal %}
+
+        {% if mode == "add" or mode == "view" %}
+            {% block add_view %}
+
+            {% endblock %}
+        {% endif %}
+    {% endblock %}
+    <!-- Dynamic Block Content END -->
+
+    <!-- footer -->
+    {% block footer %}
+        {% include "footer.html" %}
+    {% endblock %}
+    <!-- footer END-->
+    <input type="hidden" id="csrf_token" value="{{csrf_token}}" />
+    <!-- Loading -->
+    <div class="overlay">
+    </div>
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+</body>
+<!-- App Scripts -->
+{% include "scripts.html" %}
+{% block scripts %}
+    
+{% endblock %}
+</html>

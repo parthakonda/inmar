@@ -1,0 +1,217 @@
+/**
+    Login Css
+    Ref: https://bootsnipp.com/snippets/featured/login-and-register-tabbed-form
+    Author: Partha
+**/
+
+.panel-login {
+    margin-top: 15%;
+	border-color: #ccc;
+	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+}
+.panel-login>.panel-heading {
+	color: #00415d;
+	background-color: #fff;
+	border-color: #fff;
+	text-align:center;
+}
+.panel-login>.panel-heading a{
+	text-decoration: none;
+	color: #666;
+	font-weight: bold;
+	font-size: 15px;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	transition: all 0.1s linear;
+}
+.panel-login>.panel-heading a.active{
+	color: #4fb247;
+    font-size: 25px;
+}
+.panel-login>.panel-heading hr{
+	margin-top: 10px;
+	margin-bottom: 0px;
+	clear: both;
+	border: 0;
+	height: 1px;
+	background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+	background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+	background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+	background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+}
+.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+	height: 45px;
+	border: 1px solid #ddd;
+	font-size: 16px;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	transition: all 0.1s linear;
+}
+.panel-login input:hover,
+.panel-login input:focus {
+	outline:none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	border-color: #ccc;
+}
+.btn-login {
+	background-color: #59B2E0;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-color: #59B2E6;
+}
+.btn-login:hover,
+.btn-login:focus {
+	color: #fff;
+	background-color: #53A3CD;
+	border-color: #53A3CD;
+}
+.forgot-password {
+	text-decoration: underline;
+	color: #888;
+}
+.forgot-password:hover,
+.forgot-password:focus {
+	text-decoration: underline;
+	color: #666;
+}
+
+.btn-register {
+	background-color: #1CB94E;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-color: #1CB94A;
+}
+.btn-register:hover,
+.btn-register:focus {
+	color: #fff;
+	background-color: #1CA347;
+	border-color: #1CA347;
+}
+
+body {
+	background-color: #f5f5f5;
+}
+.navbar-brand{
+	background-image: url(/static/images/inmar-logo.png);
+    background-size: cover;
+    width: 125px;
+    margin-left: 0px !important;
+}
+.menu {
+	height: 30px;
+	background-color: #222222;
+	box-shadow: 0px 0px 2px #222;
+    margin-top: -25px;
+	width: 100%;
+	font-size: 12px;
+    padding-left: 4%;
+}
+.navbar-default {
+    background-color: #232F3E;
+    border-color: #232F3E;
+}
+
+.menu .dropdown button{
+	background: transparent;
+    outline: none;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    line-height: 32px;
+}
+
+.navbar-nav.nav{
+	top: 38px;
+    position: relative;
+    color: white;
+}
+
+.navbar-nav.nav li>a{
+	color: #51b848;
+}
+
+.tab-content{
+	background: white;
+    margin-top: 0px;
+    padding: 10px;
+    box-shadow: 0px 0px 2px #d3d3d3;
+    min-height: 400px;
+}
+
+.nav.nav-tabs{
+	background: rgba(160, 160, 160, 0.15);
+    box-shadow: 0px 0px 2px #d3d3d3;
+}
+
+.overlay{
+	display: none;
+}
+.spinner{
+	display: none;
+}
+
+body.loading .overlay{
+	position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+	top: 0;
+	display: block;
+}
+body.loading .spinner {
+	width: 40px;
+	height: 40px;
+	display: block;
+	position: fixed;
+	left: 49%;
+	top: 35%;
+	margin: 100px auto;
+  }
+  
+  .double-bounce1, .double-bounce2 {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background-color: #007cc3;
+	opacity: 0.6;
+	position: absolute;
+	top: 0;
+	left: 0;
+	
+	-webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+	animation: sk-bounce 2.0s infinite ease-in-out;
+  }
+  
+  .double-bounce2 {
+	-webkit-animation-delay: -1.0s;
+	animation-delay: -1.0s;
+  }
+  
+  @-webkit-keyframes sk-bounce {
+	0%, 100% { -webkit-transform: scale(0.0) }
+	50% { -webkit-transform: scale(1.0) }
+  }
+  
+  @keyframes sk-bounce {
+	0%, 100% { 
+	  transform: scale(0.0);
+	  -webkit-transform: scale(0.0);
+	} 50% { 
+	  transform: scale(1.0);
+	  -webkit-transform: scale(1.0);
+	}
+  }

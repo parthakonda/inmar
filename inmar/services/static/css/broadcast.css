@@ -1,0 +1,202 @@
+/** 
+    Author: SaiTeja
+    Description: Notification CSS
+**/
+.shownotifier {
+    height: 45px;
+    width: 45px;
+    color: white;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    /* background: url(/static/images/message.png); */
+    /* background-repeat: no-repeat; */
+    /* background-size: 26px 23px; */
+    /* background-position: 13px 8px; */
+    cursor: pointer;
+    z-index: 100;
+    padding-top: 10px;
+    font-size: 20px;
+}
+.shownotifier .notinum {
+    display: inline-block;
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    color: white;
+    background: red;
+    top: 4px;
+    left: 11px;
+    font-size: 9px;
+    text-align: center;
+    line-height: 15px;
+    border: 2px solid #232F3E;
+}
+.notifier.container {
+  position: absolute;
+  height: 100%;
+  width: 350px;
+  right: 0px;
+  top: 0px;
+  transition: all 0.5s;
+  display: none;
+}
+
+.notifier.container.menu-active{
+  display: block;
+}
+.notifier.container.ng-hide {
+  right: -350px;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.notifier>.holder {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  z-index: 200;
+  background: #D7D7D7;
+  box-shadow: 0px 0px 5px gray;
+}
+
+.notifier>.holder>.minbtn {
+  height: 45px;
+  width: 45px;
+  position: absolute;
+  left: -45px;
+  top: 0px;
+  background: black url('/static/images/cancel.png');
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  background-position: 13px 12px;
+  cursor: pointer;
+  
+}
+
+.notifier>.holder>.header{
+  padding: 12px 25px;
+  border-bottom: 1px solid #B9B9B9;
+  overflow: hidden;
+  min-width: initial;
+  background: #cecece;
+}
+
+.notifier>.holder>.header>.notibtn{
+  background: #B9B9B9;
+  color: white;
+  border: 0px;
+  float:left;
+  width: 33.3%;
+  font-size: 13px;
+  line-height: 20px;
+  outline: none;
+  cursor: pointer;
+
+}
+.notifier>.holder>.header>.notibtn.active {
+  background: #F6F6F6;
+  color: #545450;
+}
+.notifier>.holder>.notibody.active{
+  height: calc(100% - 45px);
+  padding: 0px 8px;
+  overflow: scroll;
+  opacity: 1;
+  transition: all 0.5s;
+}
+.notifier>.holder>.notibody.ng-hide{
+  opacity: 0;
+}
+.notifier>.holder>.notibody>.list {
+  margin-top: 8px;
+  box-shadow: 0px 0px 5px #b5b5b5;
+  border-radius: 7px;
+}
+.notifier>.holder>.notibody>.list:last-child {
+  margin-bottom: 8px;
+}
+.notifier>.holder>.notibody>.list>.title {
+  border-radius: 7px 7px 0px 0px;
+  background: #E9E9E9;
+  color: #7D7D7A;
+  height: 22px;
+  padding: 0px 10px;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+.notifier>.holder>.notibody>.list .info,.notifier>.holder>.notibody>.list .identity {
+  display: inline-block;
+  float: left;
+}
+.notifier>.holder>.notibody>.list .info{
+  height: inherit;
+  display: inline-block;
+  width: 60%;
+  font-size: 11px;
+  line-height: 22px;
+}
+.notifier>.holder>.notibody>.list .identity {
+  height: inherit;
+  display: inline-block;
+  width: 40%;
+  font-size: 12px;
+  line-height: 22px;
+  text-align: right;
+}
+.notifier>.holder>.notibody .idclose {
+  background: url('/static/images/cross-symbol.png');
+  background-repeat: no-repeat;
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+  background-size: 10px;
+}
+.notifier>.holder>.notibody>.list .info-icon{
+  content: '';
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.notifier>.holder>.notibody>.list .warning{
+  background-color: #F69C55;
+}
+.notifier>.holder>.notibody>.list .error{
+  background-color: #F74F57;
+}
+.notifier>.holder>.notibody>.list .success{
+  background-color: #5FBA7D;
+}
+.notifier>.holder>.notibody>.list>.content {
+  color: #7D7D7A;
+  background: #F1F1F1;
+  border-radius: 0px 0px 7px 7px;
+  font-size: 13px;
+  padding: 5px 10px 10px 10px;
+  font-family: sans-serif;
+  line-height: 18px;
+  display: block !important;
+}
+.notifier>.holder>.notibody>.list>.content.newly_added{
+    animation-name: example;
+    animation-duration: 1s;
+}
+
+
+
+.READ .content{
+  background: #FAFAFA !important;
+
+}
+.READ{
+  background:#E9E9E9;
+}
+@keyframes example {
+    from {background-color: orange;}
+    to {background-color: yellow;}
+}
+
+/* The element to apply the animation to */

@@ -1,0 +1,38 @@
+{% load static %}
+<html lang="en" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="{% static "authentication/css/bootstrap.min.css" %}">
+  <link rel="stylesheet" href="{% static "css/noty.css" %}">  
+  <!-- Application CSS -->
+  <link rel="stylesheet" href="{% static "authentication/css/authentication-styles.css" %}">    
+</head>
+<body ng-app="Authentication" ng-cloak>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/"></a>
+            </div>
+        </div>
+    </nav>
+    <!-- Navigation Bar END -->
+    
+    <!-- MainContent -->
+    {% block content %}
+
+  
+
+    {% endblock %}
+    <!-- MainContent END -->
+    <!-- Loading -->
+    <div class="overlay">
+    </div>
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+</body>
+{% include "authentication/scripts.html" %}
+</html>

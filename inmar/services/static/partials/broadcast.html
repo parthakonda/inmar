@@ -1,0 +1,186 @@
+ 	<div class="shownotifier" ng-show="hidenotifier" ng-click="hidenotifier=false">
+      <i class="fa fa-bell-o" aria-hidden="true"></i>
+      <div class="notinum" ng-if="total_count > 0">{[total_count]}</div>
+    </div>
+    <div class="notifier container" ng-class="{'menu-active':!hidenotifier}" ng-hide="hidenotifier">
+        <div class="holder">
+            <div class="minbtn" ng-click="hidenotifier=true" >
+            </div>
+            <div class="header">
+                <button class="notibtn" style="border-radius: 3px 0px 0px 3px" ng-click="shownote='notify'" ng-class="{'active':shownote=='notify'}">
+                    <i class="fa fa-bell-o" aria-hidden="true" ></i>
+                </button>
+                <button class="notibtn" style="border-left: 1px solid white; border-right: 1px solid white;" ng-click="shownote='message'" ng-class="{'active':shownote=='message'}" >  
+                    <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                </button>
+                <button class="notibtn" style="border-radius: 0px 3px 3px 0px" ng-click="shownote='debug'" ng-class="{'active':shownote=='debug'}">  
+                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="notibody" ng-hide="shownote!='notify'" ng-class="{'active':shownote=='notify'}" id="process_body">
+                <div class="list" ng-repeat="item in BOX.PROCESSES" ng-class="{'READ':item.action=='READ'}" >
+                    <div class="title">
+                        <span class="info">
+                            <span class="info-icon" ng-class="item.status | lowercase"></span>
+                            <span ng-bind="item.title" style="text-decoration: underline;cursor: pointer;" ng-click="showProcess(item.process_id)"></span>
+                        </span>
+                        <span class="identity">
+                            <span ng-bind="item.process_id"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span class="idclose" style="font-weight:bold;cursor:pointer;" ng-click=deleteProcess(item)></span>
+                        </span>
+                    </div>
+                    <div class="content" ng-class="{'newly_added': item.newly_added}" ng-click="ReadProcess(item,item.action)">
+                        <b ng-bind="item.subject"></b><br>
+                        <span ng-bind="item.body"></span> <span style="color:green; " ng-bind="item.status"></span><br>
+                        Request ID: <span ng-bind="item.request_id"></span><br>
+                        <small><span ng-bind="item.audit_user"></span ng-bind="item.audit_dttm"><span></span> </small>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="notibody" ng-hide="shownote!='message'" ng-class="{'active':shownote=='message'}" id="message_body">
+                <div class="list" ng-repeat="item in BOX.MESSAGES" ng-class="{'READ':item.message_status=='READ'}">
+                    <div class="title">
+                        <span class="info">
+                            <span class="info-icon" ng-class="item.status | lowercase"></span>
+                            <span ng-bind="item.title"></span>
+                        </span>
+                        <span class="identity">
+                            <span class="idclose" style="font-weight:bold;cursor:pointer;" ng-click="deleteMessage(item)"></span>
+                        </span>
+                    </div>
+                    <div class="content" ng-class="{'newly_added': item.newly_added}" ng-click="ReadMessage(item,item.message_status)">
+                        <b ng-bind="item.subject"></b><br>
+                        <small><span ng-bind="item.audit_user"></span ng-bind="item.audit_dttm"><span></span> </small>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="notibody" ng-hide="shownote!='debug'" ng-class="{'active':shownote=='debug'}" ng-init="show_themes=false;show_comforts=false;show_dashboard=false;show_menu=false;show_quicklinks=false;">
+                <!-- Themes List -->
+                <h3 class="settings-heading" ng-click="show_themes=!show_themes;" style="cursor: pointer;">
+                    <i ng-class="{'fa fa-caret-right':show_themes==false,'fa fa-caret-down':show_themes==true}"></i> Themes
+                </h3>
+                <div class="list" ng-show="show_themes" ng-repeat="theme in themes">
+                    <div class="title">
+                        <span class="info">
+                            <span class="info-icon success" style="background-color:{[theme.color]}"></span>
+                            <span>{[theme.title]}</span>
+                        </span>
+                        <span class="identity">
+                            <span>Theme</span>
+                        </span>
+                    </div>
+                    <div class="content" ng-class="{'newly_added': item.newly_added}">
+                        <b></b><br>
+                        <span>
+                            {[theme.description]} 
+                        </span><br /><br />
+                        <span style="color:white; " class="btn ibtn" ng-show="theme.status">
+                            <i class="fa fa-check"></i>
+                           Activated</span>
+                        <span style="color:white; " class="btn ibtn" ng-show="theme.status==false" ng-click="activateTheme(theme)">
+                           Activate</span>
+                        <span style="color: #1f643f;line-height: 34px;background: silver;padding: 0px 15px;box-shadow: 0px 0px 1px #d3d3d3;" class="pull-right">Preview</span>
+                        <br>
+                    </div>
+                </div>
+                <!-- Themes List END -->
+
+                <!-- Comforts List -->
+                <h3 class="settings-heading" ng-click="show_comforts=!show_comforts;" style="cursor: pointer;">
+                    <i ng-class="{'fa fa-caret-right':show_comforts==false,'fa fa-caret-down':show_comforts==true}"></i> Comforts
+                </h3>
+                <div class="list" ng-show="show_comforts" ng-repeat="comfort in comforts">
+                    <div class="title">
+                        <span class="info">
+                            <span class="info-icon success" style="background-color:{[comfort.color]}"></span>
+                            <span>{[comfort.title]}</span>
+                        </span>
+                        <span class="identity">
+                            <span>View</span>
+                        </span>
+                    </div>
+                    <div class="content" ng-class="{'newly_added': item.newly_added}">
+                        <b></b><br>
+                        <span>
+                           {[comfort.description]}   
+                        </span><br /><br />
+                        <span style="color:white; " class="btn ibtn" ng-show="comfort.status">
+                            <i class="fa fa-check"></i>
+                           Activated</span>
+                        
+                         <span style="color:white; " class="btn ibtn" ng-show="comfort.status==false" ng-click="activateComfort(comfort)">
+                           Activate</span>
+                        <span style="color: #1f643f;line-height: 34px;background: silver;padding: 0px 15px;box-shadow: 0px 0px 1px #d3d3d3;" class="pull-right">Preview</span>
+                        <br>
+                    </div>
+                </div>
+                <!-- Dashboard -->
+                <h3 class="settings-heading" ng-click="show_dashboard=!show_dashboard;" style="cursor: pointer;">
+                    <i ng-class="{'fa fa-caret-right':show_dashboard==false,'fa fa-caret-down':show_dashboard==true}"></i> Dashboard
+                </h3>
+                <div class="list" ng-show="show_dashboard">
+                    <div class="title">
+                        <span class="info">
+                            <span class="info-icon success"></span>
+                            <span>Dashboard</span>
+                        </span>
+                        <span class="identity">
+                            <span>Dashboard View</span>
+                        </span>
+                    </div>
+                    <div class="content" ng-class="{'newly_added': item.newly_added}">
+                        <b></b>
+                        <radio label="HorizontalView" ng-model="config.dashboard" ng-value="horizontal" name="dashboard"></radio><br />
+                        <br /><radio label="VerticalView" ng-model="config.dashboard" ng-value="vertical" name="dashboard"></radio>
+                            
+                        <span style="color: #1f643f;line-height: 34px;background: silver;padding: 0px 15px;box-shadow: 0px 0px 1px #d3d3d3;" class="pull-right">Preview</span>
+                        <br><br />
+                    </div>
+                </div>
+                <!-- Menu -->
+                <h3 class="settings-heading" ng-click="show_menu=!show_menu;" style="cursor: pointer;">
+                    <i ng-class="{'fa fa-caret-right':show_menu==false,'fa fa-caret-down':show_menu==true}"></i> Menu
+                </h3>
+                <div class="list" ng-show="show_menu">
+                    <div class="title">
+                        <span class="info">
+                            <span class="info-icon success"></span>
+                            <span>Menu</span>
+                        </span>
+                        <span class="identity">
+                            <span>MenuDesigner</span>
+                        </span>
+                    </div>
+                    <div class="content" ng-class="{'newly_added': item.newly_added}">
+                        <b></b><br />
+                        <a href='#' class="btn ibtn">Customize Menu</a>    
+                        <br><br />
+                    </div>
+                </div>
+                <!-- QuickLink -->
+                <h3 class="settings-heading" ng-click="show_quicklinks=!show_quicklinks;" style="cursor: pointer;">
+                    <i ng-class="{'fa fa-caret-right':show_quicklinks==false,'fa fa-caret-down':show_quicklinks==true}"></i> QuickLinks
+                </h3>
+                <div class="list" ng-show="show_quicklinks">
+                    <div class="title">
+                        <span class="info">
+                            <span class="info-icon success"></span>
+                            <span>Menu</span>
+                        </span>
+                        <span class="identity">
+                            <span>Links</span>
+                        </span>
+                    </div>
+                    <div class="content" ng-class="{'newly_added': item.newly_added}">
+                        <b></b>
+                       <a href="/billing/define_billing_events/search/">Billing Events</a><br />
+                       <a href="/setup/define_billing_categories/search/">Billing Categories</a><br />
+                       <a href="/billing/define_billing_templates/search/">Billing Templates</a><br />                       
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
