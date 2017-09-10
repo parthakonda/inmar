@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^$', home),
     url(r'^api/v1/', include(stock_routes)),
     url(r'^stock/', include(stock_urls)),
-    url(r'^', include(auth_urls)),                
+    url(r'^', include(auth_urls)),
+    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),            
 ]

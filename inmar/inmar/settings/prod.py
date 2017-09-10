@@ -39,7 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authentication',
     'services',
+    'oauth2_provider',
     'rest_framework',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'oauth2_provider.backends.OAuth2Backend',    
 ]
 
 MIDDLEWARE = [
@@ -111,7 +117,7 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
+        'authentication.permissions.OAuthPermission',
     ),
     # 'DEFAULT_RENDERER_CLASSES': (
     #     'rest_framework.renderers.JSONRenderer',
@@ -123,11 +129,11 @@ REST_FRAMEWORK = {
     # 'EXCEPTION_HANDLER': 'sunrise.restful.exceptions.custom_exception_handler',
     'PAGE_SIZE': 10,
     'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata',
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'rest_framework.authentication.BasicAuthentication',
-    #     'rest_framework.authentication.SessionAuthentication',
-    #     'oauth2_provider.ext.rest_framework.OAuth2Authentication',
-    # )
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+    )
 }
 
 
