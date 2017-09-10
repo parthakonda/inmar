@@ -8,7 +8,7 @@ The following steps are for the Ubuntu
 
 ## Setup AWS Instance/other
 
-    I've configure basic ec2(t2.micro) of ununtu server (16.2) AMI
+    I've configured the basic ec2(t2.micro) of ubuntu server (16.2) AMI
 
 ## Install system requirements
     sudo apt-get update
@@ -82,7 +82,8 @@ The following steps are for the Ubuntu
 ## Migrate
     python manage.py migrate
 
-## Collect static 
+## Collect static
+    mkdir ~/assets
     python manage.py collectstatic
 
 ## Create Log file
