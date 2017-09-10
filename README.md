@@ -11,36 +11,36 @@ The following steps are for the Ubuntu
     I've configure basic ec2(t2.micro) of ununtu server (16.2) AMI
 
 ## Install system requirements
-    1. sudo apt-get update
-    2. sudo apt-get install build-essential python-dev libpq-dev
+    sudo apt-get update
+    sudo apt-get install build-essential python-dev libpq-dev
     
 ## Install Postgers
-    3. sudo apt-get install postgresql postgresql-contrib
+    sudo apt-get install postgresql postgresql-contrib
 
 ## Install Redis
-    4. sudo apt-get install redis-server
+    sudo apt-get install redis-server
 
 ## Install Rabbitmq
-    5. sudo apt-get install rabbitmq-server
+    sudo apt-get install rabbitmq-server
 
 ## Install Supervisor
-    6. sudo apt-get install supervisor
+    sudo apt-get install supervisor
 
 ## Install Nginx
-    7. sudo apt-get install nginx
+    sudo apt-get install nginx
 
 ## Configure database
-    8. sudo -u postgres psql postgres
+    sudo -u postgres psql postgres
        `
         create database inmar;
         create user inmar with encrypted password 'inmar';
         \q
        ' 
 ## Install pip
-    9. sudo apt-get install python-pip
+    sudo apt-get install python-pip
 
 ## Install virtualenv
-    10. sudo pip install virtualenv
+    sudo pip install virtualenv
         
     Note: Incase if you get any error then
         `export LC_ALL=C`
@@ -52,7 +52,7 @@ The following steps are for the Ubuntu
     cd ~
 
 ## Clone the code
-    11. git clone https://github.com/parthz/inmar.git
+    git clone https://github.com/parthz/inmar.git
         cd inmar
 
 ## Prepare .env
@@ -96,6 +96,10 @@ The following steps are for the Ubuntu
    touch nginx-error.log
 
 ## Deploy
+    chmod u+x ~/inmar/deploy/web/gunicorn.bash
+    chmod u+x ~/inmar/deploy/worker/celery.bash
+    chmod u+x ~/inmar/deploy/tornado/tornado.bash
+    
     sudo ln -s ~/inmar/deploy/web/gunicorn.conf /etc/supervisor/conf.d/
     sudo ln -s ~/inmar/deploy/worker/worker.conf /etc/supervisor/conf.d/
     sudo ln -s ~/inmar/deploy/tornado/tornado.conf /etc/supervisor/conf.d/
@@ -106,6 +110,10 @@ The following steps are for the Ubuntu
     sudo supervisorctl reread
     sudo supervisorctl update
     sudo supervisorctl restart all
+
+    sudo service nginx restart
+    or
+    sudo nginx -s reload
 
 ## Hit the URL
     If everything works fine then you should be able to see the app
