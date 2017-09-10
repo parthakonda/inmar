@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+import json
 from datetime import datetime
 
 from django.shortcuts import render
@@ -91,3 +91,45 @@ def request_import_data(request):
     task = RequestImportDataTask()
     task.apply_async(args=(track.pk,))
     return HttpResponse("Initiated")
+
+def dump_data(request):
+    
+    DEPARTMENT = {
+        'name': 'WB_ITEM_MASTER_HIERARCHY',
+        'children': []
+    }
+
+    # Get locations
+    _locations = Location.objects.all()
+    
+    for loc_idx, location in enumerate(_locations):
+        DEPARTMENT['children'].append({
+            'name': location.name,
+            'children': []
+        })
+        # Get Department
+        _departments = Department.objects.filter(location = location)
+
+        for dep_idx, department in enumerate(_departments):
+            # Get Categories
+            DEPARTMENT['children'][loc_idx]['children'].append({
+                'name': department.name,
+                'children': []
+            })
+            _categories = Category.objects.filter(department = department)
+
+            for cat_idx, category in enumerate(_categories):
+                # Get Subcategories
+                _subcategories = SubCategory.objects.filter(category=category)
+                DEPARTMENT['children'][loc_idx]['children'][dep_idx]['children'].append({
+                    'name': category.name,
+                    'children': []
+                })
+                for subcategory in _subcategories:
+                    DEPARTMENT['children'][loc_idx]['children'][dep_idx]['children'][cat_idx]['children'].append(
+                        {'name': subcategory.name}
+                    )
+    return HttpResponse(json.dumps(DEPARTMENT))
+
+def show_infographic(request):
+    return render(request, "infographic.html", {})

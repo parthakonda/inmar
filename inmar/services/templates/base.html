@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="{% static "css/font-awesome.css" %}" media="all">    
     <link rel="stylesheet" href="{% static "css/broadcast.css" %}">    
     <!-- Application CSS -->
-    <link rel="stylesheet" href="{% static "css/styles.css" %}">    
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    {% block extracss %}
+    
+    {% endblock %}
 </head>
 <body ng-controller="baseController">
     <broadcastbox url="{{request.session.TORNADO_URL}}" username="{{user.username}}"></broadcastbox>
