@@ -211,6 +211,48 @@ servicesApp.factory('SKU', ['$http', function ($http) {
     }
 }]); // Sku Api
 
+servicesApp.factory('User', ['$http', function ($http) {
+    var _export = {
+        list: function(params) {
+            return $http({
+                method:'GET',
+                url:'/api/v1/user/',
+                params: params,
+                header: {
+                    'Content-Type': 'application/json',
+                }
+            });
+        },
+        retrieve: function(pk, params) {
+            return $http({
+                method:'GET',
+                url:'/api/v1/user/' + pk + '/',
+                params: params,
+                header: {
+                    'Content-Type': 'application/json',
+                }
+            });
+        },
+        create: function() {
+
+        },
+        update: function() {
+
+        },
+        destroy: function() {
+
+        }
+    }
+
+    return {
+        list: _export.list,
+        retrieve: _export.retrieve,
+        create: _export.create,
+        update: _export.update,
+        destroy: _export.destroy
+    }
+}]); // User Api
+
 servicesApp.factory('Notify', function ($rootScope) {
     return {
         'success': function (message) {

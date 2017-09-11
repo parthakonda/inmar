@@ -1,5 +1,4 @@
 from rest_framework import status, viewsets
-from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from services.models import SKU, Category, Department, Location, SubCategory
@@ -126,25 +125,25 @@ class SKUApiView(APIView):
         # Location Filter
         if location is not None and location != "":
             all_sku = all_sku.filter(
-                subcategory__category__department__location__name__iexact = location
+                subcategory__category__department__location__name__istartswith = location
             )
         
         # Department Filter
         if department is not None and department != "":
             all_sku = all_sku.filter(
-                subcategory__category__department__name__iexact = department
+                subcategory__category__department__name__istartswith = department
             )
         
         # category Filter
         if category is not None and category != "":
             all_sku = all_sku.filter(
-                subcategory__category__name__iexact = category
+                subcategory__category__name__istartswith = category
             )
 
         # subcategory Filter
         if subcategory is not None and subcategory != "":
             all_sku = all_sku.filter(
-                subcategory__name__iexact = subcategory
+                subcategory__name__istartswith = subcategory
             )
         _serializer = SKUListSerializer(all_sku, many=True)
         return Response(_serializer.data, status = status.HTTP_200_OK)

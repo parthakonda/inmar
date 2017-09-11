@@ -54,18 +54,18 @@
                 </div>
             </div>
             <br />
-            <div class="upload-option" ng-show="import_type=='upload'">
+            <div class="upload-option" ng-show="import_type=='upload'" ng-cloak>
                 <input type="file" id="upload_file" />
                 <br />
                 <input type="button" ng-click="initiate_upload()" value="Run" class="btn btn-primary" />
             </div>
-            <div class="upload-option" ng-show="import_type=='s3'">
+            <div class="upload-option" ng-show="import_type=='s3'" ng-cloak>
                 <div class="col-md-2 text-right">
                     <label>S3 Location</label>
                 </div>
                 <input type="text" ng-model="s3_location" />
             </div>
-            <div class="upload-option" ng-show="import_type=='ftp'" style="padding-left: 20px;">
+            <div class="upload-option" ng-show="import_type=='ftp'" style="padding-left: 20px;" ng-cloak>
                 <div class="row">
                     <div class="col-md-1 text-right">
                         <label>Host:</label>

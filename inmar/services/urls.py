@@ -11,6 +11,5 @@ urlpatterns = [
     url(r'^flush/(?P<dispatch>[\w-]+)/$',
         SearchAddView.as_view(template="authentication/flush.html")),
     url(r'^task/$', request_import_data),
-    url(r'^dump_data/$', dump_data),
-    # url(r'^show_infographic/view/$', show_infographic),          
+    url(r'^dump_data/$', dump_data),      
 ]

@@ -1,5 +1,5 @@
 // App initialization
-var baseApp = angular.module('baseApp', ['services', 'BroadcastBox', 'datatables']);
+var baseApp = angular.module('baseApp', ['services', 'BroadcastBox', 'datatables', 'ui.bootstrap']);
 
 // Config
 baseApp.config(['$interpolateProvider','$httpProvider', '$compileProvider',
@@ -14,13 +14,26 @@ baseApp.config(['$interpolateProvider','$httpProvider', '$compileProvider',
 }]);
 
 
-
-
 ////////////////////// Controllers
 // Parent Controller
-baseApp.controller('baseController',['$scope','$location','$http','$timeout', '$rootScope',
-    function($scope, $location, $http, $timeout, $rootScope){
+baseApp.controller('baseController',['$scope','$location','$http','$timeout', '$rootScope', '$modal',
+    function($scope, $location, $http, $timeout, $rootScope, $modal){
 
+        $scope.changePassword = function() {
+            var modalInstance = $modal.open({
+                templateUrl: '/static/partials/change_password.html',
+                scope:$scope,
+                size: 'lg lg-todo',
+                resolve: {
+                    attrs: function(){
+                        return [];
+                    },
+                },    
+                controller: function($scope, $modalInstance, attrs, $timeout){
+                    
+                },
+            });
+        };
 
 }]);
 
@@ -78,6 +91,48 @@ function($scope, $location, $http, $timeout, $rootScope, Notify, $q, DTOptionsBu
         }, function(data) {
             Notify.error("Something went wrong");
             Loading.stop();            
+        });
+    };
+}]);
+
+
+// UserSearch Controller
+baseApp.controller('UserSearchController',['$scope','$location','$http','$timeout', '$rootScope', 'Notify', '$q', 'DTOptionsBuilder', 'Loading', 'User', '$modal',
+function($scope, $location, $http, $timeout, $rootScope, Notify, $q, DTOptionsBuilder, Loading, User, $modal){
+
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions()
+
+    function fnThatReturnsAPromise() {
+        var defer = $q.defer();
+        defer.resolve(false);
+        return defer.promise;
+    }
+
+    $scope.searchUser = function(){
+        Loading.start();
+        User.list().then(function(data){
+            $scope.user_results = data.data.results;
+            Loading.stop();
+        }, function(data) {
+            Notify.error(data.data.message);
+            Loading.stop();            
+        });
+    };
+
+    $scope.addUser = function() {
+        var modalInstance = $modal.open({
+            templateUrl: '/static/partials/add_user.html',
+            scope:$scope,
+            size: 'lg lg-todo',
+            resolve: {
+                attrs: function(){
+                    return [];
+                },
+            },    
+            controller: function($scope, $modalInstance, attrs, $timeout){
+                
+            },
         });
     };
 }]);

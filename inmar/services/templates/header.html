@@ -21,7 +21,7 @@
                         <i class="fa fa-user"></i> {{ request.user.username | default:'User'}} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Settings</a></li>
-                        <li><a href="#">Change Password</a></li>
+                        <li><a href="#" ng-click="changePassword()">Change Password</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/auth/logout/">Logout</a></li>
                     </ul>
@@ -39,7 +39,7 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#">
+            <li><a href="/auth/user/search/">
                 <i class="fa fa-user"></i>&nbsp;
                 Users
             </a></li>

@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework_nested.serializers import NestedHyperlinkedModelSerializer
 
 from services.models import (
     SKU,
