@@ -23,7 +23,8 @@
     {% endblock %}
     <!-- Header END -->
 
-    <!-- Dynamic Block Content -->      
+    <!-- Dynamic Block Content -->
+    <div class="container">   
     {% block content %}
         {% ifequal mode "search" %}
             {% block search %}
@@ -49,6 +50,7 @@
             {% endblock %}
         {% endif %}
     {% endblock %}
+    </div>
     <!-- Dynamic Block Content END -->
 
     <!-- footer -->

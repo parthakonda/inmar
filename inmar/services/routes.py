@@ -1,7 +1,8 @@
 from django.conf.urls import include, url
 from rest_framework_nested import routers
 from services.viewsets import (CategoryViewSet, DepartmentViewSet,
-                               LocationViewSet, SKUViewSet, SubCategoryViewSet)
+                               LocationViewSet, SKUViewSet, SubCategoryViewSet,
+                               SKUApiView, FlushApiView)
 from services.views import SearchAddView
 # Location
 router = routers.SimpleRouter()
@@ -36,5 +37,7 @@ urlpatterns = [
     url(r'', include(department_router.urls)),
     url(r'', include(category_router.urls)),
     url(r'', include(sub_category_router.urls)),    
-    url(r'', include(sku_router.urls)),            
+    url(r'', include(sku_router.urls)),
+    url(r'sku_search/$', SKUApiView.as_view()), 
+    url(r'flush/$', FlushApiView.as_view()),           
 ]

@@ -38,3 +38,7 @@ class SKUSerializer(serializers.ModelSerializer):
         model = SKU
         fields = "__all__"
         
+class SKUListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SKU
+        fields = ['id', 'stock_id', 'name', 'subcategory_name','subcategory_name', 'category_name', 'department_name', 'location_name']

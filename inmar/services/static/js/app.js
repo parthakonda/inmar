@@ -1,5 +1,5 @@
 // App initialization
-var baseApp = angular.module('baseApp', ['services', 'BroadcastBox']);
+var baseApp = angular.module('baseApp', ['services', 'BroadcastBox', 'datatables']);
 
 // Config
 baseApp.config(['$interpolateProvider','$httpProvider', '$compileProvider',
@@ -22,221 +22,62 @@ baseApp.controller('baseController',['$scope','$location','$http','$timeout', '$
     function($scope, $location, $http, $timeout, $rootScope){
 
 
-}])
-baseApp.factory('Loading', function(){
+}]);
 
-    return {
-        start: function(){
-            $('body').addClass('loading');
-        },
-        stop: function(){
-            $('body').removeClass('loading');            
-        }
+
+// SKUSearch Controller
+baseApp.controller('SKUSearchController',['$scope','$location','$http','$timeout', '$rootScope', 'Notify', '$q', 'DTOptionsBuilder', 'Loading',
+function($scope, $location, $http, $timeout, $rootScope, Notify, $q, DTOptionsBuilder, Loading){
+
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions()
+
+    function fnThatReturnsAPromise() {
+        var defer = $q.defer();
+        defer.resolve(false);
+        return defer.promise;
     }
-});
-baseApp.factory('Notify', function ($rootScope) {
-    return {
-        'success': function (message) {
-            new Noty({
-                type: 'success',
-                layout: 'topRight',
-                theme: 'mint',
-                text: message,
-                timeout: 3000,
-                progressBar: true,
-                closeWith: ['click', 'button'],
-                animation: {
-                    open: 'noty_effects_open',
-                    close: 'noty_effects_close'  
-                },
-                id: false,
-                force: false,
-                killer: false,
-                queue: 'global',
-                container: false,
-                buttons: [],
-                sounds: {
-                    sources: [],
-                    volume: 1,
-                    conditions: []
-                },
-                titleCount: {
-                    conditions: []
-                },
-                modal: false
-            }).show();
-            $('.invalid.ng-invalid').removeClass('invalid').removeClass('ng-invalid');
-        },
-        'error': function (message) {
-            console.log("type:" + typeof message);
-            if (typeof message == 'object') {
-                var req_fields = [];
-                for (var key in message.data) {
-                    if (typeof message.data === 'object') {
-                        if (message.data.hasOwnProperty(key) && key != "at_row") {
-                            
-                            new Noty({
-                                type: 'error',
-                                layout: 'topRight',
-                                theme: 'mint',
-                                text: key.capitalize() + ": " + message.data[key][0].capitalize(),
-                                timeout: 3000,
-                                progressBar: true,
-                                closeWith: ['click', 'button'],
-                                animation: {
-                                    open: 'noty_effects_open',
-                                    close: 'noty_effects_close'
-                                },
-                                id: false,
-                                force: false,
-                                killer: false,
-                                queue: 'global',
-                                container: false,
-                                buttons: [],
-                                sounds: {
-                                    sources: [],
-                                    volume: 1,
-                                    conditions: []
-                                },
-                                titleCount: {
-                                    conditions: []
-                                },
-                                modal: false
-                            }).show()
-                            if (message.data.hasOwnProperty('at_row')){
-                                $('#' + key + "_" + message.data['at_row'][0]).addClass('ng-invalid').addClass('invalid');
-                            }
-                        } 
-                    } else {
-                        new Noty({
-                            type: 'error',
-                            layout: 'topRight',
-                            theme: 'mint',
-                            text: message.data,
-                            timeout: 3000,
-                            progressBar: true,
-                            closeWith: ['click', 'button'],
-                            animation: {
-                                open: 'noty_effects_open',
-                                close: 'noty_effects_close'
-                            },
-                            id: false,
-                            force: false,
-                            killer: false,
-                            queue: 'global',
-                            container: false,
-                            buttons: [],
-                            sounds: {
-                                sources: [],
-                                volume: 1,
-                                conditions: []
-                            },
-                            titleCount: {
-                                conditions: []
-                            },
-                            modal: false
-                        }).show()
-                        return false;
-                    }
-                }
-                console.log($rootScope);
-                $rootScope.server_err_fields = req_fields;
-                $rootScope.$broadcast('serveErr');
+
+    $scope.searchSKU = function(){
+        Loading.start();
+        $http({
+            method:'GET',
+            url:'/api/v1/sku_search/',
+            params: {
+                location: $scope.location,
+                department: $scope.department,
+                category: $scope.category,
+                subcategory: $scope.subcategory,                
+            },
+            header: {
+                'Content-Type': 'application/json',
             }
-            else {
-                new Noty({
-                    type: 'error',
-                    layout: 'topRight',
-                    theme: 'mint',
-                    text: message,
-                    timeout: 3000,
-                    progressBar: true,
-                    closeWith: ['click', 'button'],
-                    animation: {
-                        open: 'noty_effects_open',
-                        close: 'noty_effects_close'
-                    },
-                    id: false,
-                    force: false,
-                    killer: false,
-                    queue: 'global',
-                    container: false,
-                    buttons: [],
-                    sounds: {
-                        sources: [],
-                        volume: 1,
-                        conditions: []
-                    },
-                    titleCount: {
-                        conditions: []
-                    },
-                    modal: false
-                }).show()
-                return false;
-            }
-        },
-        'warning': function (message) {
-            new Noty({
-                type: 'warning',
-                layout: 'topRight',
-                theme: 'mint',
-                text: message,
-                timeout: 3000,
-                progressBar: true,
-                closeWith: ['click', 'button'],
-                animation: {
-                    open: 'noty_effects_open',
-                    close: 'noty_effects_close'
-                },
-                id: false,
-                force: false,
-                killer: false,
-                queue: 'global',
-                container: false,
-                buttons: [],
-                sounds: {
-                    sources: [],
-                    volume: 1,
-                    conditions: []
-                },
-                titleCount: {
-                    conditions: []
-                },
-                modal: false
-            }).show()
-        },
-        'poly': function (obj) {
-            //Fired when showing notifications and also highlighting that error field
-            //where obj is an array of objects {'key':'value'} where key is the ngModel name and value is the notification message
-            if (Array.isArray(obj) == true) {
-                for (var i = 0; i < obj.length; i++) {
-                    var elename = Object.keys(obj[i])[0];
-                    var notimsg = obj[i][elename];
-                    var k = angular.element("[ng-model='" + elename + "']");
-                    k.addClass('updated');
-                    noty({
-                        text: notimsg,
-                        type: 'error',
-                        layout: 'topRight',
-                        theme: 'defaultTheme',
-                        dismissQueue: false,
-                        timeout: '3000',
-                    });
-                }
-            }
-        }
-    }
-})
-// Child Controller
-baseApp.controller('SearchController',['$scope','$location','$http','$timeout', '$rootScope', 'Location',
-function($scope, $location, $http, $timeout, $rootScope, Location){
-
-    Location.list().then(function(response){
-        console.log(response);
-    }, function(response){
-
-    })
-    
-}])
+        }).then(function(data){
+            $scope.sku_results = data.data;
+            Loading.stop();
+        }, function(data) {
+            Notify.error(data.data.message);
+            Loading.stop();            
+        });
+    };
+}]);
 
 
+baseApp.controller('FlushController',['$scope','$location','$http','$timeout', '$rootScope', 'Notify', '$q', 'DTOptionsBuilder', 'Loading',
+function($scope, $location, $http, $timeout, $rootScope, Notify, $q, DTOptionsBuilder, Loading){
+
+    $scope.flush = function(){
+        // For demo only
+        Loading.start();
+        $http({
+            method:'GET',
+            url:'/api/v1/stock/flush/'
+        }).then(function(data){
+            Loading.stop();
+            Notify.success(data.data.message);
+        }, function(data) {
+            Notify.error("Something went wrong");
+            Loading.stop();            
+        });
+    };
+}]);

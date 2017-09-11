@@ -10,14 +10,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"></a>
+            <a class="navbar-brand" href="/"></a>
             </div>
     
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user.username | default:'User'}} <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i> {{ request.user.username | default:'User'}} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Settings</a></li>
                         <li><a href="#">Change Password</a></li>
@@ -34,29 +35,45 @@
 <div class="menu">
     <div class="dropdown" style="display:inline-block;">
         <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            SETUP
+            <i class="fa fa-cog"></i> SETUP
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#">Users</a></li>
-            <li><a href="/o/applications/">OAuth</a></li>
+            <li><a href="#">
+                <i class="fa fa-user"></i>&nbsp;
+                Users
+            </a></li>
+            <li><a href="/o/applications/">
+                <i class="fa fa-share"></i>&nbsp;
+                OAuth
+            </a></li>
+            <li><a href="/stock/flush/search/" style="color:orangered;">
+            <i class="fa fa-trash"></i>&nbsp;
+                Flush Data
+        </a></li>
         </ul>
     </div>
     <div class="dropdown" style="display:inline-block;margin-left: 2%;">
         <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Stock
+                <i class="fa fa-stack-overflow"></i> Stock
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="/stock/request_import_data/add/">Request Import Data</a></li>
+            <li><a href="/stock/request_import_data/add/">
+                <i class="fa fa-cloud-download"></i>&nbsp;              
+                Request Import Data
+            </a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="/stock/show_infographic/view/">Infographic View</a></li>            
+            <li><a href="/stock/show_infographic/view/" style="color: green;">
+                <i class="fa fa-tree"></i>&nbsp;
+                Infographic View
+                <sup style="font-size: 27px;position: relative;top: 2px;left: -4px;">*</sup>
+            </a></li>            
             <li role="separator" class="divider"></li>
-            <li><a href="#">Location</a></li>
-            <li><a href="#">Department</a></li>
-            <li><a href="#">Category</a></li>
-            <li><a href="#">SubCategory</a></li>
-            <li><a href="#">SKU</a></li>            
+            <li><a href="/stock/search_stock/search/">
+                <i class="fa fa-search"></i>&nbsp;
+                Search Stock
+            </a></li>            
         </ul>
     </div>
 </div>

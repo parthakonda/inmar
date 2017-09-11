@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extracss %}
+<style type="text/css">
+h3, hr{
+    margin: 0px;
+}
+hr {
+    margin: 10px 0px 10px 0px;
+    border: 1px solid rgba(211, 211, 211, 0.35);
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container" ng-controller="FlushController">
+    <br /><br /><br />
+    <div class="panel panel-danger">
+        <div class="panel-heading">Flush Whole Data ?</div>
+        <div class="panel-body">
+            If you flush the data once, data won't be restored.
+        </div>
+    </div>
+    <span class="btn btn-danger" ng-click="flush()">Flush</span>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static "js/app.js" %}"></script>
+{% endblock %}

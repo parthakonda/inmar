@@ -142,6 +142,21 @@ class SKU(models.Model):
         null=True
     )
 
+    @property
+    def subcategory_name(self):
+        return self.subcategory.name
+
+    @property
+    def category_name(self):
+        return self.subcategory.category.name
+
+    @property
+    def department_name(self):
+        return self.subcategory.category.department.name
+
+    @property
+    def location_name(self):
+        return self.subcategory.category.department.location.name
 
     class Meta:
         db_table = "stock_keeping_unit"

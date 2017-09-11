@@ -132,4 +132,4 @@ def dump_data(request):
     return HttpResponse(json.dumps(DEPARTMENT))
 
 def show_infographic(request):
-    return render(request, "infographic.html", {})
+    return render(request, "services/infographic.html", {})

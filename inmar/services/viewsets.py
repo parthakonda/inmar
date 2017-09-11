@@ -5,14 +5,13 @@ from rest_framework.views import APIView
 from services.models import SKU, Category, Department, Location, SubCategory
 from services.serializers import (CategorySerializer, DepartmentSerializer,
                                  LocationSerializer, SKUSerializer,
-                                 SubCategorySerializer)
+                                 SubCategorySerializer, SKUListSerializer)
 
 
 class LocationViewSet(viewsets.ModelViewSet):
 
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
-
 
 class DepartmentViewSet(viewsets.ModelViewSet):
 
@@ -112,3 +111,55 @@ class SKUViewSet(viewsets.ModelViewSet):
         )
         serializer = self.get_serializer(sku)        
         return Response(serializer.data)
+
+
+class SKUApiView(APIView):
+
+    def get(self, request, format=None):
+        location = request.GET.get('location', None)
+        department = request.GET.get('department', None)
+        category = request.GET.get('category', None)
+        subcategory = request.GET.get('subcategory', None)
+
+        all_sku = SKU.objects.all()
+        
+        # Location Filter
+        if location is not None and location != "":
+            all_sku = all_sku.filter(
+                subcategory__category__department__location__name__iexact = location
+            )
+        
+        # Department Filter
+        if department is not None and department != "":
+            all_sku = all_sku.filter(
+                subcategory__category__department__name__iexact = department
+            )
+        
+        # category Filter
+        if category is not None and category != "":
+            all_sku = all_sku.filter(
+                subcategory__category__name__iexact = category
+            )
+
+        # subcategory Filter
+        if subcategory is not None and subcategory != "":
+            all_sku = all_sku.filter(
+                subcategory__name__iexact = subcategory
+            )
+        _serializer = SKUListSerializer(all_sku, many=True)
+        return Response(_serializer.data, status = status.HTTP_200_OK)
+
+
+class FlushApiView(APIView):
+
+    def get(self, request, format=None):
+        try:
+            Location.objects.all().delete()
+            Department.objects.all().delete()
+            Category.objects.all().delete()
+            SubCategory.objects.all().delete()
+            SKU.objects.all().delete()
+            return Response({'message': 'Successfully Flushed'})
+        except:
+            return Response({'message': 'Flush Failed'})
+            

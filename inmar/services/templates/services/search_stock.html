@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extracss %}
+<style type="text/css">
+h3, hr{
+    margin: 0px;
+}
+hr {
+    margin: 10px 0px 10px 0px;
+    border: 1px solid rgba(211, 211, 211, 0.35);
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<br /><br />
+<div class="container" ng-controller="SKUSearchController">
+    <h3>Search Stock</h3>
+    <hr />
+    <div class="search-header">
+        <div class="row">
+            <div class="col-md-2">
+                <label>Location</label>
+            </div>
+            <div class="col-md-2">
+                <label>Department</label>
+            </div>
+            <div class="col-md-2">
+                <label>Category</label>
+            </div>
+            <div class="col-md-2">
+                <label>Subcategory</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <input type="text" class="form-control" ng-model="location" />
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" ng-model="department" />                    
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" ng-model="category" />                    
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" ng-model="subcategory" />                    
+            </div>
+            <div class="col-md-1">
+                <input type="button" class="btn btn-primary" value="Search" ng-click="searchSKU()" />                    
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="nogriddata" ng-show="sku_results.length==0">
+        No Data Avaialable
+    </div>
+    
+    <div class="search-results" ng-show="sku_results.length>0">
+        <table datatable="ng" class="row-border hover table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>StockID</th>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Department</th>
+                    <th>Category</th>
+                    <th>SubCategory</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in sku_results">
+                    <td>{[item.stock_id]}</td>
+                    <td>{[item.name]}</td>
+                    <td>{[item.location_name]}</td>
+                    <td>{[item.department_name]}</td>
+                    <td>{[item.category_name]}</td>
+                    <td>{[item.subcategory_name]}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-1">
+                <span class="btn btn-success" ng-click="addSKU()">
+                    <i class="fa fa-plus"></i>&nbsp;Add
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static "js/request_import_data.js" %}"></script>
+{% endblock %}

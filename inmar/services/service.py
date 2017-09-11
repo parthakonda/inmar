@@ -27,7 +27,6 @@ class SKUApi(object):
         location=None,
         department=None
     ):
-        # import pdb;pdb.set_trace()
         try:
             _department, _is_created = Department.objects.get_or_create(
                 location=location,
@@ -137,18 +136,10 @@ class SKUApi(object):
         )
         return True
 
-    def flush_all(self):
-        Location.objects.all().delete()
-        Department.objects.all().delete()
-        Category.objects.all().delete()
-        SubCategory.objects.all().delete()
-        SKU.objects.all().delete()
-
 def load_data(
     file_instance=None
 ):
     sku_obj = SKUApi()
-    sku_obj.flush_all()
     all_rows = csv.DictReader(file_instance)
     for row in all_rows:
         for key, value in row.items():
