@@ -20,8 +20,6 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user"></i> {{ request.user.username | default:'User'}} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#" ng-click="changePassword()">Change Password</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/auth/logout/">Logout</a></li>
                     </ul>
@@ -35,7 +33,7 @@
 <div class="menu">
     <div class="dropdown" style="display:inline-block;">
         <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <i class="fa fa-cog"></i> SETUP
+            <i class="fa fa-cog" style="font-size: 14px;"></i> SETUP
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -55,7 +53,7 @@
     </div>
     <div class="dropdown" style="display:inline-block;margin-left: 2%;">
         <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <i class="fa fa-stack-overflow"></i> Stock
+                <i class="fa fa-stack-overflow" style="font-size: 14px;"></i> Stock
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">

@@ -16,24 +16,8 @@ baseApp.config(['$interpolateProvider','$httpProvider', '$compileProvider',
 
 ////////////////////// Controllers
 // Parent Controller
-baseApp.controller('baseController',['$scope','$location','$http','$timeout', '$rootScope', '$modal',
-    function($scope, $location, $http, $timeout, $rootScope, $modal){
-
-        $scope.changePassword = function() {
-            var modalInstance = $modal.open({
-                templateUrl: '/static/partials/change_password.html',
-                scope:$scope,
-                size: 'lg lg-todo',
-                resolve: {
-                    attrs: function(){
-                        return [];
-                    },
-                },    
-                controller: function($scope, $modalInstance, attrs, $timeout){
-                    
-                },
-            });
-        };
+baseApp.controller('baseController',['$scope','$location','$http','$timeout', '$rootScope', '$modal', 'User',
+    function($scope, $location, $http, $timeout, $rootScope, $modal, User){
 
 }]);
 
@@ -130,9 +114,33 @@ function($scope, $location, $http, $timeout, $rootScope, Notify, $q, DTOptionsBu
                     return [];
                 },
             },    
-            controller: function($scope, $modalInstance, attrs, $timeout){
-                
+            controller: function($scope, $modalInstance, attrs, $timeout, User){
+                $scope.saveUser = function(){
+                    var payload = {
+                        username: $scope.username,
+                        first_name: $scope.first_name,
+                        last_name: $scope.last_name,
+                        password: $scope.password
+                    }
+                    User.create(payload).then(function(data){
+                        Notify.success("User created Successfully");
+                        $scope.modalSelect();
+                    }, function(data){
+                        Notify.error("Something went wrong");
+                    });
+                };
+
+                $scope.modalSelect = function () {
+                    $modalInstance.close();
+                };
+
+                $scope.modalClose = function () {
+                     $modalInstance.dismiss('cancel');
+                };
             },
+        });
+        modalInstance.result.then(function(data){
+            $scope.searchUser();
         });
     };
 }]);

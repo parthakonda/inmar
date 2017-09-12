@@ -233,14 +233,15 @@ servicesApp.factory('User', ['$http', function ($http) {
                 }
             });
         },
-        create: function() {
-
-        },
-        update: function() {
-
-        },
-        destroy: function() {
-
+        create: function(payload) {
+            return $http({
+                method:'POST',
+                url:'/api/v1/user/',
+                data: payload,
+                header: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     }
 
