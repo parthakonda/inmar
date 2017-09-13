@@ -8,7 +8,7 @@ The following steps are for the Ubuntu
 
 ## Setup AWS Instance/other
 
-    I've configured the basic ec2(t2.micro) of ubuntu server (16.2) AMI
+    I've configured the basic ec2(t2.micro) of ubuntu server (16.04) AMI
 
 ## Install system requirements
     sudo apt-get update
