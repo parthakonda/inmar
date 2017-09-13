@@ -161,4 +161,3 @@ class FlushApiView(APIView):
             return Response({'message': 'Successfully Flushed'})
         except:
             return Response({'message': 'Flush Failed'})
-            

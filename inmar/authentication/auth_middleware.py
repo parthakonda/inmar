@@ -11,6 +11,7 @@ def simple_middleware(get_response):
     def middleware(request):
         # Code to be executed for each request before
         # the view (and later middleware) are called.
+        setattr(request, '_dont_enforce_csrf_checks', True)
         for path in BY_PASS:
             if request.path.startswith(path):
                 return get_response(request)

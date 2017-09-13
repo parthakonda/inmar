@@ -12,7 +12,9 @@ class UserViewSet(viewsets.ModelViewSet):
     
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
+    page_size = 100
+    page_size_query_param = 'page_size'
+    
     def create(self, request, format=None):
         request.data.update({'password': make_password(request.data['password'])})
         return super(UserViewSet, self).create(request)

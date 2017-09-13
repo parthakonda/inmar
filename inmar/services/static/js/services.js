@@ -234,12 +234,14 @@ servicesApp.factory('User', ['$http', function ($http) {
             });
         },
         create: function(payload) {
+            payload['csrfmiddlewaretoken'] = $('#csrf_token').val();
             return $http({
                 method:'POST',
                 url:'/api/v1/user/',
                 data: payload,
                 header: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': $('#csrf_token').val()
                 }
             });
         }

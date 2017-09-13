@@ -127,7 +127,6 @@ REST_FRAMEWORK = {
     # ),
     'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata',
     # 'EXCEPTION_HANDLER': 'sunrise.restful.exceptions.custom_exception_handler',
-    'PAGE_SIZE': 10,
     'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',

@@ -9,7 +9,8 @@ baseApp.config(['$interpolateProvider','$httpProvider', '$compileProvider',
         $interpolateProvider.startSymbol('{[');
         $interpolateProvider.endSymbol(']}');
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/json;odata=verbose'; 
-        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';  
+        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        $httpProvider.defaults.headers.common['X-CSRFToken'] = $('#csrf_token').val();
         // $httpProvider.interceptors.push('httpInterceptor');           
 }]);
 
@@ -96,7 +97,8 @@ function($scope, $location, $http, $timeout, $rootScope, Notify, $q, DTOptionsBu
     $scope.searchUser = function(){
         Loading.start();
         User.list().then(function(data){
-            $scope.user_results = data.data.results;
+            console.log(data);
+            $scope.user_results = data.data;
             Loading.stop();
         }, function(data) {
             Notify.error(data.data.message);
